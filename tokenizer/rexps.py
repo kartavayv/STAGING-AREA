@@ -14,16 +14,71 @@ reg_pat = "|".join(pats)
 
 
 
-# -----------------(building vocab from train split)
+# -----------------(building vocab from train split, and other G4 stuff)
+# with open("tokenizer/data/splits.txt", "r") as f:
+#     train_data = json.load(f)["train"]
+    
+# for t in train_data:
+#     build_vocab(t[-1],"tokenizer/data/vocab.txt" )
+# print("vocab built!")
+
+# with open("tokenizer/data/splits.txt", "r") as f:
+#     data = json.load(f)
+#     print(type(data["val"]), len(data["val"]))
+#     print(data["val"][-1])
+
 with open("tokenizer/data/splits.txt", "r") as f:
-    data = json.load(f)["val"]
+    data = json.load(f)
+    val_data = data["val"]
+    test_data = data["test"]
 
+sfiles  = ["tokenizer/data/val_unks.txt" , "tokenizer/data/test_unks.txt"]
+# vdata = []
+# for t in val_data:
+#     tokens  = encode(t[-1])
+#     vdata.append(tokens)
 
-for t in data:
-    vocab  = encode(t[-1])
+# with open(sfiles[0], "w") as f:
+#     json.dump(
+#         vdata, f
+#     )
+#     print("val data encoded")
 
-# print(vocab)
+# with open(sfiles[0], "r") as f:
+#     data = json.load(f)
+#     print(len(data))
 
+# tdata = []
+# for t in test_data:
+#     tokens  = encode(t[-1])
+#     tdata.append(tokens)
+
+# with open(sfiles[1], "w") as f:
+#     json.dump(
+#         tdata, f
+#     )
+#     print("test data encoded")
+    
+
+info = {}
+# for f in sfiles:
+#     file = f.split("/")[-1]
+#     count = 0
+#     print("in the loop")
+#     with open(f, "r") as f:
+#         data = json.load(f)
+    
+#     for l in data:
+#         c = l.count(vocab["<UNK>"])
+#         count += c
+
+#     info[file] = count
+
+o =  encode("theman is here the man is where")
+print(o)
+p  = o.count(vocab["<UNK>"])
+
+print(p)
 
 
 

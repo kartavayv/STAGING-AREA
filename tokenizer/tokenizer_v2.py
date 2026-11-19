@@ -49,7 +49,7 @@ def build_vocab(seq, file):
 
 #the tragedy i feel about this is that i  hvae to use regex in this too
 def encode(seq, fname=None):
-    tok_seq = seq
+    tok_seq = seq #not sure if that's a nicce name
     vocab  = {} 
     
     with open("tokenizer/data/vocab.txt", "r") as f:
@@ -63,18 +63,17 @@ def encode(seq, fname=None):
             
             if match:
                 try:
-                    tokens.append(vocab[match.group()])
+                    tokens.append(vocab.get(match.group(), vocab["<UNK>"]))
                     tok_seq = tok_seq.replace(match.group(), "", 1)
                     # print(f"tokens made {tokens} remaining tok_seq: {tok_seq}")
                     break
                 except Exception as e:
                     raise Exception(f"remaining state of tok_seq: {tok_seq} causing the error: {e} it belongs to file: {fname}")
-                
-        if len(tok_seq) == len(seq):
-            raise Exception(f"match object found no match and the remaining string to consume is: {tok_seq}")
         
         if len(tok_seq) == 0:
-            return tokens
+            break
+        
+    return tokens
         
 def decode(seq):
     out = ""
